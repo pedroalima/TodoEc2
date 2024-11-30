@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{95F478E4-C31D-438C-B8E6-8F1FC78B1C82}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{F2BD8E52-9100-48E6-882C-BE9A1C359723}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1CEFB158-E08C-41C1-9A9C-612DCF3A2EA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoEc2.API", "src\Backend\TodoEc2.API\TodoEc2.API.csproj", "{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2BD8E52-9100-48E6-882C-BE9A1C359723} = {95F478E4-C31D-438C-B8E6-8F1FC78B1C82}
+		{1CEFB158-E08C-41C1-9A9C-612DCF3A2EA4} = {95F478E4-C31D-438C-B8E6-8F1FC78B1C82}
+		{8BD6C79E-9044-4AC2-A3BA-4BC93F1A6A04} = {F2BD8E52-9100-48E6-882C-BE9A1C359723}
+	EndGlobalSection
+EndGlobal
