@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\TodoEc2.Communication\TodoEc2.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\TodoEc2.Exceptions\TodoEc2.Exceptions.csproj" />
+    <ProjectReference Include="..\TodoEc2.Domain\TodoEc2.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
