@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\TodoEc2.Communication\TodoEc2.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\TodoEc2.Exceptions\TodoEc2.Exceptions.csproj" />
+    <ProjectReference Include="..\TodoEc2.Application\TodoEc2.Application.csproj" />
+  </ItemGroup>
+
 </Project>

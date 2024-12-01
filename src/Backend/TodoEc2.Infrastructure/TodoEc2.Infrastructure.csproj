@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TodoEc2.Domain\TodoEc2.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
