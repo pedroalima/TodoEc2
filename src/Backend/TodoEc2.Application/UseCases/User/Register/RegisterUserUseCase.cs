@@ -11,7 +11,9 @@ namespace TodoEc2.Application.UseCases.User.Register
             // Validade
             Validate(request);
             // Mapping
+            
             // Criptografy
+
             // Save DB
 
             return new ResponseRegisterUserJson
