@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Shared\TodoEc2.Communication\TodoEc2.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\TodoEc2.Exceptions\TodoEc2.Exceptions.csproj" />
     <ProjectReference Include="..\TodoEc2.Application\TodoEc2.Application.csproj" />
+    <ProjectReference Include="..\TodoEc2.Infrastructure\TodoEc2.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
