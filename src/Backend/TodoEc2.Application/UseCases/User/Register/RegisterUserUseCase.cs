@@ -2,13 +2,17 @@
 using TodoEc2.Application.Services.Cryptografy;
 using TodoEc2.Communication.Requests;
 using TodoEc2.Communication.Responses;
+using TodoEc2.Domain.Repositories.User;
 using TodoEc2.Exceptions.ExceptionBase;
 
 namespace TodoEc2.Application.UseCases.User.Register
 {
     public class RegisterUserUseCase
     {
-        public ResponseRegisterUserJson Execute(RequestRegisterUserJson request)
+        private readonly IUserReadOnlyRepository _readOnlyRepository;
+        private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+
+        public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
         {
             // Validade
             Validate(request);
@@ -27,6 +31,7 @@ namespace TodoEc2.Application.UseCases.User.Register
             passwordCryptografy.Encrypt(request.Password);
 
             // Save DB
+            await _writeOnlyRepository.Add(user);
 
             return new ResponseRegisterUserJson
             {

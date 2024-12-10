@@ -3,7 +3,7 @@ using TodoEc2.Domain.Entities;
 
 namespace TodoEc2.Infrastructure.DataAccess
 {
-    internal class TodoEc2DbContext: DbContext
+    public class TodoEc2DbContext: DbContext
     {
         public TodoEc2DbContext(DbContextOptions options) : base(options) { }
 
