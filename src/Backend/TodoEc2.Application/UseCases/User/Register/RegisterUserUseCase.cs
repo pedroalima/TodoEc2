@@ -1,37 +1,50 @@
-﻿using TodoEc2.Application.Services.AutoMapper;
+﻿using AutoMapper;
 using TodoEc2.Application.Services.Cryptografy;
 using TodoEc2.Communication.Requests;
 using TodoEc2.Communication.Responses;
+using TodoEc2.Domain.Repositories;
 using TodoEc2.Domain.Repositories.User;
 using TodoEc2.Exceptions.ExceptionBase;
 
 namespace TodoEc2.Application.UseCases.User.Register
 {
-    public class RegisterUserUseCase
+    public class RegisterUserUseCase : IRegisterUserUseCase
     {
         private readonly IUserReadOnlyRepository _readOnlyRepository;
         private readonly IUserWriteOnlyRepository _writeOnlyRepository;
+        private readonly IMapper _mapper;
+        private readonly PasswordEncrypter _passwordEncrypter;
+        private readonly IUnityOfWork _unityOfWork;
+
+        public RegisterUserUseCase(
+            IUserReadOnlyRepository readOnlyRepository,
+            IUserWriteOnlyRepository writeOnlyRepository,
+            IMapper mapper,
+            PasswordEncrypter passwordEncrypter,
+            IUnityOfWork unityOfWork)
+        {
+            _readOnlyRepository = readOnlyRepository;
+            _writeOnlyRepository = writeOnlyRepository;
+            _mapper = mapper;
+            _passwordEncrypter = passwordEncrypter;
+            _unityOfWork = unityOfWork;
+        }
 
         public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
         {
-            // Validade
+            // Validade * FluentValidator
             Validate(request);
 
-            // Mapping
-            var autoMapper = new AutoMapper.MapperConfiguration(options =>
-            {
-                options.AddProfile(new AutoMapping());
-            }).CreateMapper();
-
-            var user = autoMapper.Map<Domain.Entities.User>(request);
+            // Mapping * AutoMapper
+            var user = _mapper.Map<Domain.Entities.User>(request);
 
             // Criptografy
-            var passwordCryptografy = new PasswordEncrypter();
+            user.Password = _passwordEncrypter.Encrypt(request.Password);
 
-            passwordCryptografy.Encrypt(request.Password);
-
-            // Save DB
+            // Save DB * EntityFrameworkCore
             await _writeOnlyRepository.Add(user);
+
+            await _unityOfWork.Commit();
 
             return new ResponseRegisterUserJson
             {
