@@ -11,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add exceptions filter
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
 
+// Add dependency injection extensions
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure();
 
