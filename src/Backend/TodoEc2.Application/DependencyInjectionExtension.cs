@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TodoEc2.Application.Services.AutoMapper;
 using TodoEc2.Application.Services.Cryptografy;
+using TodoEc2.Application.UseCases.Todo.Create;
 using TodoEc2.Application.UseCases.User.Register;
 
 namespace TodoEc2.Application
@@ -25,6 +26,7 @@ namespace TodoEc2.Application
         public static void AddUseCases(IServiceCollection service)
         {
             service.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            service.AddScoped<ICreateTodoUseCase, CreateTodoUseCase>();
         }
 
         public static void AddPasswordEncrypter(IServiceCollection service)
