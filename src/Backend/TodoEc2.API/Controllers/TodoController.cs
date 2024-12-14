@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TodoEc2.Application.UseCases.Todo.Create;
 
 namespace TodoEc2.API.Controllers
 {
@@ -8,9 +9,12 @@ namespace TodoEc2.API.Controllers
     {
         [HttpPost]
         public IActionResult Create(
+            [FromServices] ICreateTodoUseCase useCase,
             [FromBody] RequestCreateTodoJson request)
         {
-            return Created(string.Empty, "Tarefa Criada!");
+            var result = useCase.Execute(request);
+
+            return Created(string.Empty, result);
         }
     }
 }
