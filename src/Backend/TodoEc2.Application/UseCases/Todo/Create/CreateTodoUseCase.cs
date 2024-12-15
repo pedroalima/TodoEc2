@@ -22,7 +22,7 @@ namespace TodoEc2.Application.UseCases.Todo.Create
         {
             Validate(request);
 
-            //var todo = _mapper.Map<Domain.Entities.Todo>(request);
+            var todo = _mapper.Map<Domain.Entities.Todo>(request);
 
             return new ResponseCreateTodoJson
             {
