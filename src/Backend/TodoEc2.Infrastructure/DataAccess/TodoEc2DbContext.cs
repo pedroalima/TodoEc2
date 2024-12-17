@@ -9,6 +9,8 @@ namespace TodoEc2.Infrastructure.DataAccess
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Todo> Todos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TodoEc2DbContext).Assembly);
