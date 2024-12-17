@@ -5,6 +5,6 @@ namespace TodoEc2.Application.UseCases.Todo.Create
 {
     public interface ICreateTodoUseCase
     {
-        public ResponseCreateTodoJson Execute(RequestCreateTodoJson request);
+        public Task<ResponseCreateTodoJson> Execute(RequestCreateTodoJson request);
     }
 }
