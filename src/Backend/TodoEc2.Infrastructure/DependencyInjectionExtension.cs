@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TodoEc2.Domain.Repositories;
+using TodoEc2.Domain.Repositories.Todo;
 using TodoEc2.Domain.Repositories.User;
 using TodoEc2.Infrastructure.DataAccess;
 using TodoEc2.Infrastructure.DataAccess.Repositories;
@@ -31,6 +32,8 @@ namespace TodoEc2.Infrastructure
 
             service.AddScoped<IUserReadOnlyRepository, UserRepository>();
             service.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            
+            service.AddScoped<ITodoWriteOnlyRepository, TodoRepository>();
         }
     }
 }
