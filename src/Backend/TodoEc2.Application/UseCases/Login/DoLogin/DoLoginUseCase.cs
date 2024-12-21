@@ -2,6 +2,7 @@
 using TodoEc2.Communication.Requests;
 using TodoEc2.Communication.Responses;
 using TodoEc2.Domain.Repositories.User;
+using TodoEc2.Exceptions.ExceptionBase;
 
 namespace TodoEc2.Application.UseCases.Login.DoLogin
 {
@@ -19,7 +20,8 @@ namespace TodoEc2.Application.UseCases.Login.DoLogin
         {
             var encriptedPassword = _passwordEncrypter.Encrypt(request.Password);
 
-            var user = await _repository.GetByEmailAndPassword(request.Email, encriptedPassword);
+            var user = await _repository.GetByEmailAndPassword(request.Email, encriptedPassword) 
+                ?? throw new InvalidLoginException();
 
             return new ResponseRegisterUserJson
             {
