@@ -5,9 +5,7 @@ using TodoEc2.Communication.Responses;
 
 namespace TodoEc2.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : TodoEc2BaseController
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterUserJson), StatusCodes.Status201Created)]
