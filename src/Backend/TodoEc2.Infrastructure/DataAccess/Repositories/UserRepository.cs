@@ -19,7 +19,10 @@ namespace TodoEc2.Infrastructure.DataAccess.Repositories
             return await _dbContext
                 .Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(user => user.Active && user.Email.Equals(email) && user.Password.Equals(password));
+                .FirstOrDefaultAsync(user => 
+                user.Active &&
+                user.Email.Equals(email) && 
+                user.Password.Equals(password));
         }
     }
 }

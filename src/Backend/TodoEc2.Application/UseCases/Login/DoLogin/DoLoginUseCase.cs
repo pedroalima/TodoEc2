@@ -16,6 +16,7 @@ namespace TodoEc2.Application.UseCases.Login.DoLogin
             _repository = repository;
             _passwordEncrypter = passwordEncrypter;
         }
+
         public async Task<ResponseRegisterUserJson> Execute(RequestLoginJson request)
         {
             var encriptedPassword = _passwordEncrypter.Encrypt(request.Password);
