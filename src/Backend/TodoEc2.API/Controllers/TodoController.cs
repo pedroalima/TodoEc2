@@ -4,9 +4,7 @@ using TodoEc2.Communication.Responses;
 
 namespace TodoEc2.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class TodoController : ControllerBase
+    public class TodoController : TodoEc2BaseController
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseCreateTodoJson), StatusCodes.Status201Created)]
