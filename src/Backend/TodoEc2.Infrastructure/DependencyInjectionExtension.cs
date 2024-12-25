@@ -1,19 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TodoEc2.Domain.Repositories;
 using TodoEc2.Domain.Repositories.Todo;
 using TodoEc2.Domain.Repositories.User;
+using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Infrastructure.DataAccess;
 using TodoEc2.Infrastructure.DataAccess.Repositories;
+using TodoEc2.Infrastructure.Security.Tokens.Access.Generator;
 
 namespace TodoEc2.Infrastructure
 {
     public static class DependencyInjectionExtension
     {
-        public static void AddInfrastructure(this IServiceCollection service)
+        public static void AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
         {
-            AddDbContext(service);
             AddRepositories(service);
+            AddTokens(service, configuration);
+            AddDbContext(service);
         }
 
         public static void AddDbContext(IServiceCollection service)
@@ -34,6 +38,15 @@ namespace TodoEc2.Infrastructure
             service.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             
             service.AddScoped<ITodoWriteOnlyRepository, TodoRepository>();
+        }
+
+        public static void AddTokens(IServiceCollection service, IConfiguration configuration)
+        {
+            // Adicionar o pacote Microsoft.Extensions.Configuration.Binder pare ter acesso ao metodo "GetValue"
+            var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
+            var signingKey = configuration.GetValue<string>("Setting:Jwt:SingingKey");
+
+            service.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
         }
     }
 }

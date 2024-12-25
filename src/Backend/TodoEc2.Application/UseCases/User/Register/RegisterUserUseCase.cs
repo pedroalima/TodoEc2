@@ -4,6 +4,7 @@ using TodoEc2.Communication.Requests;
 using TodoEc2.Communication.Responses;
 using TodoEc2.Domain.Repositories;
 using TodoEc2.Domain.Repositories.User;
+using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Exceptions.ExceptionBase;
 
 namespace TodoEc2.Application.UseCases.User.Register
@@ -15,19 +16,22 @@ namespace TodoEc2.Application.UseCases.User.Register
         private readonly IMapper _mapper;
         private readonly PasswordEncrypter _passwordEncrypter;
         private readonly IUnityOfWork _unityOfWork;
+        private readonly IAccessTokenGenerator _accessTokenGenerator ;
 
         public RegisterUserUseCase(
             IUserReadOnlyRepository readOnlyRepository,
             IUserWriteOnlyRepository writeOnlyRepository,
             IMapper mapper,
             PasswordEncrypter passwordEncrypter,
-            IUnityOfWork unityOfWork)
+            IUnityOfWork unityOfWork,
+            IAccessTokenGenerator accessTokenGenerator)
         {
             _readOnlyRepository = readOnlyRepository;
             _writeOnlyRepository = writeOnlyRepository;
             _mapper = mapper;
             _passwordEncrypter = passwordEncrypter;
             _unityOfWork = unityOfWork;
+            _accessTokenGenerator = accessTokenGenerator;
         }
 
         public async Task<ResponseRegisterUserJson> Execute(RequestRegisterUserJson request)
@@ -40,6 +44,7 @@ namespace TodoEc2.Application.UseCases.User.Register
 
             // Criptografy
             user.Password = _passwordEncrypter.Encrypt(request.Password);
+            user.UserIdentifier = Guid.NewGuid();
 
             // Save DB * EntityFrameworkCore
             await _writeOnlyRepository.Add(user);
@@ -48,7 +53,11 @@ namespace TodoEc2.Application.UseCases.User.Register
 
             return new ResponseRegisterUserJson
             {
-                Name = request.Name
+                Name = request.Name,
+                Tokens = new ResponseTokensJson
+                {
+                    AccessToken = _accessTokenGenerator.Generate(user.UserIdentifier),
+                }
             };
         }
 
