@@ -44,7 +44,7 @@ namespace TodoEc2.Infrastructure
         {
             // Adicionar o pacote Microsoft.Extensions.Configuration.Binder pare ter acesso ao metodo "GetValue"
             var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpirationTimeMinutes");
-            var signingKey = configuration.GetValue<string>("Setting:Jwt:SingingKey");
+            var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
 
             service.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
         }
