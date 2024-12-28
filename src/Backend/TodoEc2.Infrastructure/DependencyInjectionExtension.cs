@@ -8,6 +8,7 @@ using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Infrastructure.DataAccess;
 using TodoEc2.Infrastructure.DataAccess.Repositories;
 using TodoEc2.Infrastructure.Security.Tokens.Access.Generator;
+using TodoEc2.Infrastructure.Security.Tokens.Access.Validator;
 
 namespace TodoEc2.Infrastructure
 {
@@ -47,6 +48,7 @@ namespace TodoEc2.Infrastructure
             var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
 
             service.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
+            service.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
         }
     }
 }
