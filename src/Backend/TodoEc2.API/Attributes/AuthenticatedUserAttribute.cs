@@ -1,25 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using TodoEc2.Exceptions.ExceptionBase;
+﻿using Microsoft.AspNetCore.Mvc;
+using TodoEc2.API.Filters;
 
 namespace TodoEc2.API.Attributes
 {
-    public class AuthenticatedUserAttribute : Attribute, IAsyncAuthorizationFilter
+    public class AuthenticatedUserAttribute : TypeFilterAttribute
     {
-        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        public AuthenticatedUserAttribute() : base(typeof(AuthenticatedUserFilter))
         {
-            var token = TokenOnRequest(context);
-        }
-
-        private string TokenOnRequest(AuthorizationFilterContext context)
-        {
-            var authentication = context.HttpContext.Request.Headers.Authorization.ToString();
-
-            if (string.IsNullOrWhiteSpace(authentication)) 
-            {
-                throw new TodoEc2Exceptions("Não há token de autenticação");
-            }
-
-            return authentication["Bearer ".Length..].Trim();
         }
     }
 }
