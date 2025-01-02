@@ -1,6 +1,8 @@
 using Microsoft.OpenApi.Models;
 using TodoEc2.API.Filters;
+using TodoEc2.API.Token;
 using TodoEc2.Application;
+using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +50,9 @@ builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)))
 // Add dependency injection extensions
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
