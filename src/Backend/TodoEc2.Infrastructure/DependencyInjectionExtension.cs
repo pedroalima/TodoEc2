@@ -5,10 +5,12 @@ using TodoEc2.Domain.Repositories;
 using TodoEc2.Domain.Repositories.Todo;
 using TodoEc2.Domain.Repositories.User;
 using TodoEc2.Domain.Security.Tokens;
+using TodoEc2.Domain.Service.LoggedUser;
 using TodoEc2.Infrastructure.DataAccess;
 using TodoEc2.Infrastructure.DataAccess.Repositories;
 using TodoEc2.Infrastructure.Security.Tokens.Access.Generator;
 using TodoEc2.Infrastructure.Security.Tokens.Access.Validator;
+using TodoEc2.Infrastructure.Services.LoggedUser;
 
 namespace TodoEc2.Infrastructure
 {
@@ -17,6 +19,7 @@ namespace TodoEc2.Infrastructure
         public static void AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
         {
             AddRepositories(service);
+            AddLoggedUser(service);
             AddTokens(service, configuration);
             AddDbContext(service);
         }
@@ -49,6 +52,11 @@ namespace TodoEc2.Infrastructure
 
             service.AddScoped<IAccessTokenGenerator>(option => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
             service.AddScoped<IAccessTokenValidator>(option => new JwtTokenValidator(signingKey!));
+        }
+
+        public static void AddLoggedUser(IServiceCollection service)
+        {
+            service.AddScoped<ILoggedUser, LoggedUser>();
         }
     }
 }
