@@ -18,6 +18,7 @@ namespace TodoEc2.API.Filters
             _accessTokenValidator = accessTokenValidator;
             _repository = repository;
         }
+
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             try
