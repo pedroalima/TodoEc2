@@ -4,6 +4,8 @@ using TodoEc2.API.Token;
 using TodoEc2.Application;
 using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Infrastructure;
+using TodoEc2.Infrastructure.Extension;
+using TodoEc2.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,4 +71,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+MigrateDatabase();
+
 app.Run();
+
+void MigrateDatabase()
+{
+    var connectionString = builder.Configuration.ConnectionString();
+
+    DatabaseMigrations.Migrate(connectionString);
+}
