@@ -5,6 +5,7 @@ using TodoEc2.Application.UseCases.Login.DoLogin;
 using TodoEc2.Application.UseCases.Todo.Create;
 using TodoEc2.Application.UseCases.User.GetUserProfile;
 using TodoEc2.Application.UseCases.User.Register;
+using TodoEc2.Application.UseCases.User.Update;
 
 namespace TodoEc2.Application
 {
@@ -31,6 +32,7 @@ namespace TodoEc2.Application
             service.AddScoped<ICreateTodoUseCase, CreateTodoUseCase>();
             service.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
             service.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+            service.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         }
 
         public static void AddPasswordEncrypter(IServiceCollection service)

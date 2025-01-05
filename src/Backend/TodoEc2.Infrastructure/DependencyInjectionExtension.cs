@@ -40,6 +40,7 @@ namespace TodoEc2.Infrastructure
 
             service.AddScoped<IUserReadOnlyRepository, UserRepository>();
             service.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+            service.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
             
             service.AddScoped<ITodoWriteOnlyRepository, TodoRepository>();
         }
