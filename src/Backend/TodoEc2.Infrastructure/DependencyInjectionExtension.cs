@@ -8,6 +8,7 @@ using TodoEc2.Domain.Security.Tokens;
 using TodoEc2.Domain.Service.LoggedUser;
 using TodoEc2.Infrastructure.DataAccess;
 using TodoEc2.Infrastructure.DataAccess.Repositories;
+using TodoEc2.Infrastructure.Extension;
 using TodoEc2.Infrastructure.Security.Tokens.Access.Generator;
 using TodoEc2.Infrastructure.Security.Tokens.Access.Validator;
 using TodoEc2.Infrastructure.Services.LoggedUser;
@@ -21,12 +22,12 @@ namespace TodoEc2.Infrastructure
             AddRepositories(service);
             AddLoggedUser(service);
             AddTokens(service, configuration);
-            AddDbContext(service);
+            AddDbContext(service, configuration);
         }
 
-        public static void AddDbContext(IServiceCollection service)
+        public static void AddDbContext(IServiceCollection service, IConfiguration configuration)
         {
-            var connectionString = "Data Source=PEDRO;Initial Catalog=todoec2;User ID=sa;Password=Azsxd@626;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;";
+            var connectionString = configuration.ConnectionString();
 
             service.AddDbContext<TodoEc2DbContext>(dbContextOptions =>
             {
