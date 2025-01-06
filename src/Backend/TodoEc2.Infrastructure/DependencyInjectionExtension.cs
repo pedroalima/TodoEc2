@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using FluentMigrator.Runner;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TodoEc2.Domain.Repositories;
@@ -19,6 +21,7 @@ namespace TodoEc2.Infrastructure
     {
         public static void AddInfrastructure(this IServiceCollection service, IConfiguration configuration)
         {
+            AddFluentMigrator(service, configuration);
             AddRepositories(service);
             AddLoggedUser(service);
             AddTokens(service, configuration);
@@ -59,6 +62,19 @@ namespace TodoEc2.Infrastructure
         public static void AddLoggedUser(IServiceCollection service)
         {
             service.AddScoped<ILoggedUser, LoggedUser>();
+        }
+
+        public static void AddFluentMigrator(IServiceCollection service, IConfiguration configuration)
+        {
+            var connectionString = configuration.ConnectionString();
+
+            service.AddFluentMigratorCore().ConfigureRunner(options =>
+            {
+                options
+                .AddSqlServer()
+                .WithGlobalConnectionString(connectionString)
+                .ScanIn(Assembly.Load("TodoEc2.Infrastructure")).For.All();
+            });
         }
     }
 }
