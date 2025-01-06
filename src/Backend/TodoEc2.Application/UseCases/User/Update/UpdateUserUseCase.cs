@@ -24,6 +24,7 @@ namespace TodoEc2.Application.UseCases.User.Update
             _repository = repository;
             _userReadOnlyRepository = userReadOnlyRepository;
         }
+
         public async Task Execute(RequestUpdateUserJson request)
         {
             var loggedUser = await _loggedUser.User();
