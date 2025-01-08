@@ -53,7 +53,7 @@ namespace TodoEc2.API.Controllers
             [FromServices] IChangePasswordUseCase useCase,
             [FromBody] RequestChangePasswordJson request)
         {
-            await useCase.Execute();
+            await useCase.Execute(request);
 
             return NoContent();
         }
