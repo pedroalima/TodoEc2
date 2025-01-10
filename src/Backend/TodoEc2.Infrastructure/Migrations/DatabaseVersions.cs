@@ -4,5 +4,6 @@
     {
         public const int TABLE_USER = 1;
         public const int TABLE_TODO = 2;
+        public const int TABLE_SCHEDULES = 3;
     }
 }
